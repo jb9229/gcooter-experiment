@@ -1,8 +1,24 @@
-import * as React from "react"
-import Svg, { G, Path } from "react-native-svg"
+import React, { useEffect, useRef } from "react"
+import { Animated } from "react-native"
+import Svg, { Circle, G, Path } from "react-native-svg"
 import { SVGIconProps } from "./types"
 
-const GcooterMarker: React.FC<SVGIconProps> = ({ size = 72, fill = '#AAB0B8' }) => {
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const GcooterMarker: React.FC<SVGIconProps> = ({ selected = true, size = 80, fill = '#AAB0B8' }) => {
+  const initSelectedMotionValue = useRef(new Animated.Value(150)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(initSelectedMotionValue, {
+        isInteraction: true,
+        toValue: 180,
+        duration: 700,
+        useNativeDriver: true
+      }), {iterations: -1}
+    ).start()
+  }, []);
+
+  // const adjustLocationValue = 160 - initSelectedMotionValue;
   return (
     <Svg
       viewBox="0 0 400 403.03030303030306"
@@ -50,6 +66,13 @@ const GcooterMarker: React.FC<SVGIconProps> = ({ size = 72, fill = '#AAB0B8' }) 
           fill="#1cb364"
         />
       </G>
+      <AnimatedCircle
+        x={198}
+        y={178}
+        r={initSelectedMotionValue}
+        fill="#000000"
+        opacity={0.15}
+      />
     </Svg>
   )
 }

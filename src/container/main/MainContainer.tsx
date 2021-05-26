@@ -1,10 +1,12 @@
 import React from 'react';
-import { GET_VEHICLE_LIST_IN_BOUND } from '../../utils/sample';
+import { GET_VEHICLE_LIST_IN_BOUND, VehicleResponse } from '../../utils/sample';
 import MainLayout from './MainLayout';
 
 const MainContainer: React.FC = () => {
-    const rspOfVehicleList = (data) => {
+    const rspOfVehicleList = (data: VehicleResponse) => {
         console.log('success vehicle list call: ', data);
+        // console.log('success vehicle list call: ', data);
+        
     }
     const failedVehicleList = () => {
         console.log('failed vehicle list call!!')
