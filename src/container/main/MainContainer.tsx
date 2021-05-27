@@ -1,12 +1,17 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import { GET_VEHICLE_LIST_IN_BOUND, VehicleResponse } from '../../utils/sample';
 import MainLayout from './MainLayout';
+import { vehiclesOfMap } from './store';
 
 const MainContainer: React.FC = () => {
-    const rspOfVehicleList = (data: VehicleResponse) => {
-        console.log('success vehicle list call: ', data);
+    //states
+    const setVehiclesOfMap = useSetRecoilState(vehiclesOfMap);
+    const rspOfVehicleList = (rsp: VehicleResponse) => {
+        console.log('success vehicle list call: ', rsp.data.length);
         // console.log('success vehicle list call: ', data);
-        
+        const vehicles = rsp.data;
+        setVehiclesOfMap(rsp.data);
     }
     const failedVehicleList = () => {
         console.log('failed vehicle list call!!')

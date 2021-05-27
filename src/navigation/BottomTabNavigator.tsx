@@ -65,6 +65,9 @@ function TabMainNavigator() {
       <TabMainStack.Screen
         name="TabMainScreen"
         component={TabMainScreen}
+        options={{
+          headerShown: false
+        }}
       />
     </TabMainStack.Navigator>
   );
