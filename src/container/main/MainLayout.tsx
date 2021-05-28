@@ -34,7 +34,7 @@ const MainLayout: React.FC = () => {
               title={marker.title}
               description={marker.description}
             >
-              {selectedMarker === marker.id ? (<GcooterMarker size={40} fill="#000000" backgroundColor="#072c1a" selected={true} />) : (<GcooterMarker size={40} fill="#000000" />)}
+              {selectedMarker === marker.id ? (<GcooterMarker size={40} fill="#000000" backgroundColor="#072c1a" selected={true} battery={marker.battery} />) : (<GcooterMarker size={40} fill="#000000" battery={marker.battery} />)}
             </Marker>
           </MarkerWrap>
         ))}
