@@ -1,0 +1,6 @@
+{
+    "extends": "@dooboo/eslint-config",
+    "rules": {
+        "quotes": ["error", "single"]
+    }
+}
