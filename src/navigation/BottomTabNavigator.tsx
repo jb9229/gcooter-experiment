@@ -10,10 +10,15 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabMainScreen from '../container/main/MainContainer';
+import GcootersScreen from '../container/gcooters/GcootersContainer';
 import TabOneScreen from '../../screens/TabOneScreen';
 import TabTwoScreen from '../../screens/TabTwoScreen';
-import { BottomTabParamList, TabMainParamList, TabOneParamList, TabTwoParamList } from '../../types';
+import {
+  BottomTabParamList,
+  TabGcootersParamList,
+  TabOneParamList,
+  TabTwoParamList,
+} from '../../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -23,26 +28,33 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="TabMain"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+    >
       <BottomTab.Screen
         name="TabMain"
-        component={TabMainNavigator}
+        component={TabGcootersNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
         name="TabOne"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -51,25 +63,28 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof Ionicons>['name'];
+  color: string;
+}) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabMainStack = createStackNavigator<TabMainParamList>();
+const TabGcootersStack = createStackNavigator<TabGcootersParamList>();
 
-function TabMainNavigator() {
+function TabGcootersNavigator() {
   return (
-    <TabMainStack.Navigator>
-      <TabMainStack.Screen
-        name="TabMainScreen"
-        component={TabMainScreen}
+    <TabGcootersStack.Navigator>
+      <TabGcootersStack.Screen
+        name="TabGcootersScreen"
+        component={GcootersScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
-    </TabMainStack.Navigator>
+    </TabGcootersStack.Navigator>
   );
 }
 

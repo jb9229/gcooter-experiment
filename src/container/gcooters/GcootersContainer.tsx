@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import { GET_VEHICLE_LIST_IN_BOUND, VehicleResponse } from '../../utils/sample';
-import MainLayout from './MainLayout';
+import GcootersLayout from './GcootersLayout';
 import { vehiclesOfMap } from './store';
 
-const MainContainer: React.FC = () => {
+const GcootersContainer: React.FC = () => {
   //states
   const setVehiclesOfMap = useSetRecoilState(vehiclesOfMap);
 
@@ -32,7 +32,7 @@ const MainContainer: React.FC = () => {
     failed: failedVehicleList,
   });
 
-  return <MainLayout />;
+  return <GcootersLayout />;
 };
 
-export default MainContainer;
+export default GcootersContainer;

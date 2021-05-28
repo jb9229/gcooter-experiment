@@ -8,7 +8,7 @@ import styled from 'styled-components/native';
 
 const MarkerWrap = styled.TouchableOpacity``;
 
-const MainLayout: React.FC = () => {
+const GcootersLayout: React.FC = () => {
   // states
   const [selectedMarker, setSelectedMarker] = useState(0);
   const windowWidth = Dimensions.get('window').width;
@@ -74,7 +74,7 @@ const MainLayout: React.FC = () => {
   );
 };
 
-export default MainLayout;
+export default GcootersLayout;
 
 const styles = StyleSheet.create({
   container: {
