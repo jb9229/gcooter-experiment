@@ -8,13 +8,14 @@ interface MarkerSVGIconProps {
   fill?: string;
   selected?: boolean;
   backgroundColor?: string;
-  bettery?: number
+  battery?: number
 }
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const GcooterMarker: React.FC<MarkerSVGIconProps> = ({ selected, size = 40, fill = '#AAB0B8', backgroundColor = '#24d47c', bettery = 0 }) => {
+const GcooterMarker: React.FC<MarkerSVGIconProps> = ({ selected, size = 40, fill = '#AAB0B8', backgroundColor = '#24d47c', battery = 0 }) => {
   const initSelectedMotionValue = useRef(new Animated.Value(150)).current;
 
+  console.log(">>> battery: ", battery);
   useEffect(() => {
     if (selected) {
       Animated.loop(
@@ -64,7 +65,7 @@ const GcooterMarker: React.FC<MarkerSVGIconProps> = ({ selected, size = 40, fill
         />
         <Rect x={95} y={355} width="210" height="50" fill="#1cb364"/>
         <Rect x={100} y={360} width={200} height="35" fill="#1cb364"/>
-        <Rect x={100} y={360} width={20} height="35" fill="#ffffff"/>
+        <Rect x={100} y={360} width={battery < 0 ? 200 : (100 - battery) * 2} height="35" fill="#ffffff"/>
         {selected && (<AnimatedCircle
           x={198}
           y={178}
