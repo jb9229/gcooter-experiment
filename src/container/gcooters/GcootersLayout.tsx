@@ -43,16 +43,19 @@ const GcootersLayout: React.FC = () => {
       >
         {markers.map((marker, index) => (
           <MarkerWrap
+            testID={`marker-wrap-${index}`}
             key={marker.id}
             onPress={() => setSelectedMarker(marker.id)}
           >
             <Marker
+              testID={`marker-${index}`}
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
             >
               {selectedMarker === marker.id ? (
                 <GcooterMarker
+                  testID={`gcooter-marker-${index}`}
                   size={40}
                   fill="#000000"
                   backgroundColor="#072c1a"
@@ -61,6 +64,7 @@ const GcootersLayout: React.FC = () => {
                 />
               ) : (
                 <GcooterMarker
+                  testID={`gcooter-marker-${index}`}
                   size={40}
                   fill="#000000"
                   battery={marker.battery}

@@ -3,6 +3,7 @@ import { Animated } from 'react-native';
 import Svg, { Circle, G, Path, Rect } from 'react-native-svg';
 
 interface MarkerSVGIconProps {
+  testID?: string;
   size?: number;
   fill?: string;
   selected?: boolean;
@@ -18,6 +19,7 @@ const GcooterMarker: React.FC<MarkerSVGIconProps> = ({
   fill = '#AAB0B8',
   backgroundColor = '#24d47c',
   battery = 0,
+  testID,
 }) => {
   const initSelectedMotionValue = useRef(new Animated.Value(150)).current;
 
@@ -36,6 +38,7 @@ const GcooterMarker: React.FC<MarkerSVGIconProps> = ({
 
   return (
     <Svg
+      testID={testID}
       viewBox="0 0 400 403.03030303030306"
       width={size}
       height={size}

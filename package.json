@@ -6,10 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
-  },
-  "jest": {
-    "preset": "jest-expo"
+    "test": "jest --watchAll --verbose"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -42,7 +39,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/preset-typescript": "^7.13.0",
     "@dooboo/eslint-config": "^0.7.2",
+    "@testing-library/react-native": "^7.2.0",
+    "@types/jest": "^26.0.23",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@types/styled-components": "^5.1.9",

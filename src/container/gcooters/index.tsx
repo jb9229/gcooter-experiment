@@ -1,1 +1,3 @@
-export { GcootersLayout } from './GcootersLayout';
+import GcootersContainer from './GcootersContainer';
+
+export { GcootersContainer };

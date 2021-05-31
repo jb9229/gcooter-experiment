@@ -1,6 +1,7 @@
 {
     "extends": "@dooboo/eslint-config",
     "rules": {
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "comma-dangle": ["error", {"functions": "ignore"}]
     }
 }

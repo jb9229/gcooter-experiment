@@ -1,7 +1,7 @@
-import { atom } from "recoil";
-import { VehicleLocation } from "utils/sample";
+import { atom } from 'recoil';
+import { VehicleLocation } from 'utils/sample';
 
 export const vehiclesOfMap = atom<VehicleLocation[]>({
-    key: 'vehiclesOfMap',
-    default: [],
-  });
+  key: 'vehiclesOfMap',
+  default: [],
+});

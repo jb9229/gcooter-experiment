@@ -180,9 +180,11 @@ export async function GetRequest({
         if (isValidObject(successedData)) {
           successed(successedData);
         } else {
+          console.log('error 1');
           failed(ERROR_CODE.INVALID_DATA, 'Invalid Data');
         }
       } else {
+        console.log('error 1-1');
         failed(
           getValidObject(data, 'result_code'),
           getValidObject(data, 'message'),
@@ -198,8 +200,10 @@ export async function GetRequest({
         message.indexOf('timeout of') === 0
       ) {
         //
+        console.log('error 2');
         failed(ERROR_CODE.TIMEOUT, `Time out : ${timeout}`);
       } else {
+        console.log(`error 3: ${message}`);
         failed(ERROR_CODE.UNKNOWN, message);
       }
     });
