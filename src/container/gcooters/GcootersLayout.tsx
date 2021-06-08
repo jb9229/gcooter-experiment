@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import GcooterMarker from '../../components/svg/GcooterMarker';
 import { useRecoilValue } from 'recoil';
 import { vehiclesOfMap } from './store';
 import styled from 'styled-components/native';
+import GcootersSubmitButton from './GcootersSubmitButton';
 
 const MarkerWrap = styled.TouchableOpacity``;
 
 const GcootersLayout: React.FC = () => {
   // states
-  const [selectedMarker, setSelectedMarker] = useState(0);
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   const ASPECT_RATIO = windowWidth / windowHeight;
@@ -33,6 +33,7 @@ const GcootersLayout: React.FC = () => {
     description: vehicle.description,
     battery: vehicle.battery,
   }));
+  console.log(">>> re-render: [GcootersLayout] Com.");
 
   return (
     <View style={styles.container}>
@@ -42,38 +43,25 @@ const GcootersLayout: React.FC = () => {
         initialRegion={initialRegion}
       >
         {markers.map((marker, index) => (
-          <MarkerWrap
-            testID={`marker-wrap-${index}`}
-            key={marker.id}
-            onPress={() => setSelectedMarker(marker.id)}
-          >
+          <MarkerWrap testID={`marker-wrap-${index}`} key={marker.id}>
             <Marker
               testID={`marker-${index}`}
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
             >
-              {selectedMarker === marker.id ? (
-                <GcooterMarker
-                  testID={`gcooter-marker-${index}`}
-                  size={40}
-                  fill="#000000"
-                  backgroundColor="#072c1a"
-                  selected={true}
-                  battery={marker.battery}
-                />
-              ) : (
-                <GcooterMarker
-                  testID={`gcooter-marker-${index}`}
-                  size={40}
-                  fill="#000000"
-                  battery={marker.battery}
-                />
-              )}
+              <GcooterMarker
+                testID={`gcooter-marker-${index}`}
+                id={marker.id}
+                size={40}
+                fill="#000000"
+                battery={marker.battery}
+              />
             </Marker>
           </MarkerWrap>
         ))}
       </MapView>
+      <GcootersSubmitButton />
     </View>
   );
 };
