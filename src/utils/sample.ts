@@ -1,3 +1,5 @@
+import { ApiError } from 'api/ApiError';
+import { ApiResponse } from 'api/types';
 import axios from 'axios';
 import * as geolib from 'geolib';
 
@@ -57,51 +59,58 @@ export interface VehicleLocation extends LatLngStr {
 
 export interface VehicleResponse {
   check_license: boolean;
-  license_check_info:{          // 해당 위치의 운전면허 검사 여부
-    license_allow:number;         // 운전면허 검사 여부 ()
-    no_license_speed_limit:number // 운전면허가 없을때 현재 위치의 제한 속도
-  }
+  license_check_info: {
+    // 해당 위치의 운전면허 검사 여부
+    license_allow: number; // 운전면허 검사 여부 ()
+    no_license_speed_limit: number; // 운전면허가 없을때 현재 위치의 제한 속도
+  };
   data: VehicleLocation[];
 }
 
-export function getValidObject(target: any, ...params: any[]) {
-	let object = target;
-	if (isValidObject(target)) {
-		if (
-			params.every((param: string) => {
-				if (typeof param === 'number') {
-					if (object.length > param) {
-						object = object[param];
-					} else object = undefined;
-				} else {
-					object = object[param];
-				}
-				return isValidObject(object);
-			})
-		) {
-			return object;
-		}
-	}
-	return undefined;
+export function getValidObject(target: any, ...params: any[]): any {
+  let object = target;
+
+  if (isValidObject(target))
+    if (
+      params.every((param: string) => {
+        if (typeof param === 'number')
+          if (object.length > param) object = object[param];
+          else object = undefined;
+        else object = object[param];
+
+        return isValidObject(object);
+      })
+    )
+      return object;
+
+  return undefined;
 }
 
-export function isValidString(object: any) {
-	return object !== undefined && object !== null && typeof object === 'string' && object.length > 0;
+export function isValidString(object: any): any {
+  return (
+    object !== undefined &&
+    object !== null &&
+    typeof object === 'string' &&
+    object.length > 0
+  );
 }
 
-export function isValidObject(object: any) {
-	if (object !== undefined && object !== null) {
-		return true;
-	}
-	return false;
+export function isValidObject(object: any): any {
+  if (object !== undefined && object !== null) return true;
+
+  return false;
 }
 
-export function isValidObjects(object: any, ...params: any[]) {
-	return isValidObject(getValidObject(object, ...params));
+export function isValidObjects(object: any, ...params: any[]): any {
+  return isValidObject(getValidObject(object, ...params));
 }
 
-export function isValidArray(object: any) {
-	return object !== undefined && isValidObjects(object, 'length') && object.length > 0;
+export function isValidArray(object: any): any {
+  return (
+    object !== undefined &&
+    isValidObjects(object, 'length') &&
+    object.length > 0
+  );
 }
 
 export const ERROR_CODE = {
@@ -133,39 +142,30 @@ export async function GetRequest({
   params,
   useToken,
   timeout = 30000,
-  successed,
-  failed,
 }: {
   baseURL?: string;
   endPoint: string;
   params?: any;
   useToken?: boolean;
   timeout?: number;
-  successed: (data: any) => void;
-  failed: (
-    errCode: number,
-    message: string,
-    developerMessage?: developerMessage,
-  ) => void;
-}): Promise<any> {
+}): Promise<ApiResponse> {
   const isValidParams = isValidObject(params);
   let getParamString = '';
-  if (isValidParams) {
+
+  if (isValidParams)
     Object.keys(params).forEach((key: string, index: number) => {
       getParamString = getParamString.concat(
-        `${index === 0 ? '?' : '&'}${key}=${params[key]}`,
+        `${index === 0 ? '?' : '&'}${key}=${params[key]}`
       );
     });
-  }
 
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
   };
+
   // 토큰을 사용하는 API
-  // if (useToken && isValidObject(GetUserId()) && isValidString(GetToken())) {
-  //   headers['userid'] = GetUserId();
-  //   headers['sign'] = GetToken();
-  // }
+  headers.adminid = 1228;
+  headers.sign = 'adf6054da34bfb6f335fc9f6929f6bdf';
 
   return axiosInstance
     .get(endPoint + getParamString, {
@@ -173,38 +173,39 @@ export async function GetRequest({
       timeout,
       headers,
     })
-    .then(response => {
+    .then((response) => {
       const data = getValidObject(response, 'data');
+
       if (getValidObject(data, 'result_code') === 0) {
         const successedData = getValidObject(data, 'response');
-        if (isValidObject(successedData)) {
-          successed(successedData);
-        } else {
+
+        if (isValidObject(successedData)) return successedData;
+        else {
           console.log('error 1');
-          failed(ERROR_CODE.INVALID_DATA, 'Invalid Data');
+          throw new ApiError(ERROR_CODE.INVALID_DATA, 'Invalid Data');
         }
       } else {
         console.log('error 1-1');
-        failed(
+        throw new ApiError(
           getValidObject(data, 'result_code'),
           getValidObject(data, 'message'),
-          getValidObject(data, 'developer_message'),
+          getValidObject(data, 'developer_message')
         );
       }
     })
-    .catch(reason => {
+    .catch((reason) => {
       const message: string = getValidObject(reason, 'message');
+
       if (
         getValidObject(reason, 'code') === 'ECONNABORTED' &&
         isValidString(message) &&
         message.indexOf('timeout of') === 0
       ) {
-        //
         console.log('error 2');
-        failed(ERROR_CODE.TIMEOUT, `Time out : ${timeout}`);
+        throw new ApiError(ERROR_CODE.TIMEOUT, `Time out : ${timeout}`);
       } else {
         console.log(`error 3: ${message}`);
-        failed(ERROR_CODE.UNKNOWN, message);
+        throw new ApiError(ERROR_CODE.UNKNOWN, message);
       }
     });
 }
@@ -213,20 +214,17 @@ export async function GetRequest({
 export async function GET_VEHICLE_LIST_IN_BOUND({
   location,
   radius = 2000,
-  successed,
-  failed,
 }: {
   location: LatLng;
   radius?: number;
-  successed: (data: VehicleResponse) => void;
-  failed: (errCode: number, message: string) => void;
-}) {
+}): Promise<ApiResponse> {
   // [TODO] V2 개발 아직 안되었음
   const functionName = 'GET_VEHICLE_LIST_IN_BOUND';
-  const RequestFunction = GetRequest
-  const endPoint = 'https://live.api.gbike-api.com/api/v2/locations/scooters'
+  const RequestFunction = GetRequest;
+  const endPoint = 'https://live.api.gbike-api.com/api/v2/locations/scooters';
 
   const bounds = geolib.getBoundsOfDistance(location, radius);
+
   return RequestFunction({
     endPoint,
     params: isValidArray(bounds)
@@ -237,7 +235,31 @@ export async function GET_VEHICLE_LIST_IN_BOUND({
           max_lat: bounds[1].latitude,
         }
       : undefined,
-    successed,
-    failed,
+  });
+}
+
+// 범위내 주차금지 구역 조회
+export async function GET_NO_PARKING_ZONE_IN_COORDS({
+  bounds,
+}: {
+  bounds: any;
+  // successed: (data: NoParkingResponse) => void;
+  // failed: (errCode: number, message: string) => void;
+}): Promise<ApiResponse> {
+  // [TODO] V2 개발 아직 안되었음
+  const functionName = 'GET_NO_PARKING_ZONE_IN_COORDS';
+  const RequestFunction = GetRequest;
+  const endPoint = 'https://pre.api.gbike-api.com/api/v2/locations/scooters';
+
+  // const { RequestFunction, endPoint } = await GetAPIServerInfo(
+  //   functionName,
+  //   failed
+  // );
+
+  // ConsoleLog('bounds = ', bounds);
+
+  return RequestFunction({
+    endPoint,
+    params: bounds,
   });
 }

@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 const Wrapper = styled.View`
   position: absolute;
-  bottom: 10;
+  bottom: 10px;
   background-color: darkgray;
   border-radius: 4px;
 `;

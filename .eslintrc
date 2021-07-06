@@ -2,6 +2,9 @@
     "extends": "@dooboo/eslint-config",
     "rules": {
         "quotes": ["error", "single"],
-        "comma-dangle": ["error", {"functions": "ignore"}]
+        // "comma-dangle": ["error", {"functions": "ignore"}],
+        "comma-dangle": ["error", {"functions": "never", "objects": "always", "arrays": "never",
+            "imports": "never",
+            "exports": "always"}]
     }
 }
