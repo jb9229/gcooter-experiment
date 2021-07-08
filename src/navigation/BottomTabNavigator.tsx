@@ -10,7 +10,7 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import GcootersScreen from '../container/gcooters/GcootersContainer';
+import GcootersScreen from '../container/main_map/gcooters/GcootersContainer';
 import TabOneScreen from '../../screens/TabOneScreen';
 import TabTwoScreen from '../../screens/TabTwoScreen';
 import {

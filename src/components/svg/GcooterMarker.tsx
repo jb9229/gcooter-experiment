@@ -1,8 +1,8 @@
-import { selectedMarkerState } from '../../container/gcooters/store';
+import { selectedMarkerState } from '../../container/main_map/gcooters/store';
 import React, { useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 import Svg, { Circle, G, Path, Rect } from 'react-native-svg';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface MarkerSVGIconProps {
@@ -37,7 +37,7 @@ const GcooterMarker: React.FC<MarkerSVGIconProps> = ({
           isInteraction: true,
           toValue: 180,
           duration: 700,
-          useNativeDriver: true
+          useNativeDriver: true,
         }),
         { iterations: -1 }
       ).start();

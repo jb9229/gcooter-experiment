@@ -1,7 +1,7 @@
 import React from 'react';
 import MapView, { Marker, Polygon } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import GcooterMarker from '../../components/svg/GcooterMarker';
+import GcooterMarker from '../../../components/svg/GcooterMarker';
 import { useRecoilValue } from 'recoil';
 import { vehiclesOfMap } from './store';
 import styled from 'styled-components/native';

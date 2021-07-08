@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useSetRecoilState } from 'recoil';
-import { GET_VEHICLE_LIST_IN_BOUND } from '../../utils/sample';
+import { GET_VEHICLE_LIST_IN_BOUND } from '../../../utils/sample';
 import GcootersLayout from './GcootersLayout';
 import { vehiclesOfMap } from './store';
 

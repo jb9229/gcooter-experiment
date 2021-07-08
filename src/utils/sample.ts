@@ -221,7 +221,7 @@ export async function GET_VEHICLE_LIST_IN_BOUND({
   // [TODO] V2 개발 아직 안되었음
   const functionName = 'GET_VEHICLE_LIST_IN_BOUND';
   const RequestFunction = GetRequest;
-  const endPoint = 'https://live.api.gbike-api.com/api/v2/locations/scooters';
+  const endPoint = 'https://pre.api.gbike-api.com/api/v1/locations/scooters';
 
   const bounds = geolib.getBoundsOfDistance(location, radius);
 
@@ -249,7 +249,7 @@ export async function GET_NO_PARKING_ZONE_IN_COORDS({
   // [TODO] V2 개발 아직 안되었음
   const functionName = 'GET_NO_PARKING_ZONE_IN_COORDS';
   const RequestFunction = GetRequest;
-  const endPoint = 'https://pre.api.gbike-api.com/api/v2/locations/scooters';
+  const endPoint = 'https://pre.api.gbike-api.com/api/v2/locations/no-parking-zones';
 
   // const { RequestFunction, endPoint } = await GetAPIServerInfo(
   //   functionName,
