@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { GET_VEHICLE_LIST_IN_BOUND } from '../../../utils/sample';
 import GcootersLayout from './GcootersLayout';
@@ -28,9 +27,7 @@ const GcootersContainer: React.FC = () => {
   }, [setVehiclesOfMap]);
 
   return (
-    <Suspense fallback={<ActivityIndicator />}>
-      <GcootersLayout />
-    </Suspense>
+    <GcootersLayout />
   );
 };
 

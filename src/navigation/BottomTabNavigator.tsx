@@ -10,7 +10,6 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import GcootersScreen from '../container/main_map/gcooters/GcootersContainer';
 import TabOneScreen from '../../screens/TabOneScreen';
 import TabTwoScreen from '../../screens/TabTwoScreen';
 import {
@@ -19,6 +18,7 @@ import {
   TabOneParamList,
   TabTwoParamList,
 } from '../../types';
+import MainMapContainer from '~/container/main_map/MainMapContainer';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -79,7 +79,7 @@ function TabGcootersNavigator() {
     <TabGcootersStack.Navigator>
       <TabGcootersStack.Screen
         name="TabGcootersScreen"
-        component={GcootersScreen}
+        component={MainMapContainer}
         options={{
           headerShown: false,
         }}

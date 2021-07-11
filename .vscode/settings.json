@@ -1,3 +1,6 @@
 {
-  "react-native.packager.port": 19000
+  "react-native.packager.port": 8081,
+  "react-native.android.runArguments.device": [
+  
+  ]
 }

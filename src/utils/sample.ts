@@ -2,6 +2,7 @@ import { ApiError } from 'api/ApiError';
 import { ApiResponse } from 'api/types';
 import axios from 'axios';
 import * as geolib from 'geolib';
+import { NoParkingZoneResponse } from '~/container/main_map/noparkingzones/store';
 
 export interface LatLng {
   latitude: number;
@@ -245,7 +246,7 @@ export async function GET_NO_PARKING_ZONE_IN_COORDS({
   bounds: any;
   // successed: (data: NoParkingResponse) => void;
   // failed: (errCode: number, message: string) => void;
-}): Promise<ApiResponse> {
+}): Promise<ApiResponse<Array<NoParkingZoneResponse>>> {
   // [TODO] V2 개발 아직 안되었음
   const functionName = 'GET_NO_PARKING_ZONE_IN_COORDS';
   const RequestFunction = GetRequest;

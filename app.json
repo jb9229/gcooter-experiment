@@ -33,7 +33,11 @@
       "favicon": "./src/assets/images/favicon.png"
     },
     "sdkVersion": "42.0.0",
-    "entryPoint": ".vscode/exponentIndex.js"
+    "description": "",
+    "entryPoint": ".vscode/exponentIndex.js",
+    "extra": {
+      "flipperHack": "React Native packager is running"
+    }
   },
   "name": "gcooterexperiment"
 }

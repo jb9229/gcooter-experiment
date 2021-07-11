@@ -24,6 +24,7 @@ module.exports = function(api) {
             '~': './src',
             api: './src/api',
             utils: './src/utils',
+            container: './src/container',
           },
         },
       ],
